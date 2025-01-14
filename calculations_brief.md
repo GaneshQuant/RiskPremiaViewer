@@ -55,7 +55,7 @@ Previous Strategy Level + Option Contribution + Delta Contribution
 ### 5. Flow of Code
 The code flow is as below
 - First please execute backtest_strategy.py.
-- Then please execute the main.py code which contains the logic which helps us generate the strategy results
-- After that to test please execute test_script.py by updating the paths where you want to store the data
+- Then please execute the generate_results.py code which contains the logic which helps us generate the strategy results.
+- After that to test the logic please execute test_script.py by uploading the dataset which you gave to me.
 - For you to see the results properly I created a streamlit application and the link for that is https://strategyviewer.streamlit.app/
 
