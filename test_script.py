@@ -1,4 +1,4 @@
-from main import generate_merged_results
+from generate_results import generate_strategy_results
 
 # Specify the input file path and output file path
 file_path = "MockedData.xlsx"
