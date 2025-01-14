@@ -5,7 +5,7 @@ from scipy.stats import norm
 def preprocess_data(data):
     """Preprocess the dataset to include necessary calculations upfront."""
     data.rename(columns={'ImpliedVol': 'sigma'}, inplace=True)
-    data['StrikeDiff'] = 0  # Placeholder for strike difference
+    data['StrikeDiff'] = 0  
     data['Vega'] = data.apply(compute_vega, axis=1)
     return data
 
@@ -14,9 +14,9 @@ def compute_vega(row):
     K = row['Strike']
     T = row['T']
     sigma = row['sigma']
-    r = 0  # Assuming risk-free rate is 0 for simplicity
+    r = 0  # Assuming risk-free rate is 0 as mentioned 
 
-    if T > 0:  # Ensure T > 0 to avoid division errors
+    if T > 0:  # Ensuring T > 0 to avoid division errors
         d1 = (np.log(S / K) + (r + 0.5 * sigma ** 2) * T) / (sigma * np.sqrt(T))
         return S * norm.pdf(d1) * np.sqrt(T)
     return 0
@@ -91,7 +91,7 @@ def backtest_strategy_aligned(data, start_strategy_level=100, end_date=pd.Timest
     # Initialize the portfolio with positions for the first day
     portfolio = []
 
-    # Process the first day explicitly
+    # Processing the first day explicitly
     first_date = unique_dates[0]
     first_day_data = data[data['AsOfDate'] == first_date]
     underlying_level = first_day_data['UnderlyingPrice'].iloc[0]
@@ -122,7 +122,7 @@ def backtest_strategy_aligned(data, start_strategy_level=100, end_date=pd.Timest
     }
     portfolio_decomposition.append(portfolio_snapshot)
 
-    # Process subsequent days
+    # Processing subsequent days
     for idx in range(1, len(unique_dates)):
         previous_date = unique_dates[idx - 1]
         current_date = unique_dates[idx]
@@ -153,7 +153,7 @@ def backtest_strategy_aligned(data, start_strategy_level=100, end_date=pd.Timest
             underlying_level, put['Strike'], put['T'], 0, put['sigma'], 'put'
         )
 
-        # Update portfolio for the current day
+        # Updating portfolio for the current day
         portfolio = [
             {'delta': call_delta, 'units': calculate_vega_weighting(call, put, strategy_levels[-1], True),
              'strike': call['Strike'], 'maturity': call['Maturity'],
